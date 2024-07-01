@@ -5,7 +5,7 @@ https://t.me/wb_search_rank_bot
 /search [поисковой запрос] [артикул] - получить текущую позицию товара при поисковом запросе (до 50 страниц)
 Пример: /search кепка 12839287
 
-Используемый API: приватный незадокументированный API search.wb.ru (некоторые вещи о аботе API подсматривал здесь https://github.com/glmn/wb-private-api, остальные - reverse engineering) <br>
+Используемый API: приватный незадокументированный API search.wb.ru (некоторые вещи о работе API подсматривал здесь https://github.com/glmn/wb-private-api, остальные - reverse engineering) <br>
 Деплой: с помощью docker и timeweb cloud apps (что даёт автоматический CD по коммиту в main) <br>
 
 Предложения по улучшению функционала:
