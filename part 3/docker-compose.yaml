@@ -1,0 +1,10 @@
+services:
+  exchange-rate-bot:
+    build: .
+    container_name: exchange-rate-bot
+    command: python3 -m bot.main
+    ports:
+      - 80:80
+    volumes:
+      - .:/code
+
