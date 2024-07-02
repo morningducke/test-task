@@ -10,7 +10,7 @@ from bot.config import WbApiUrls, WbApiConfig
 class WBSearchClient:
     """Клиент для общения с search.wb.ru"""
 
-    def __init__(self, session: ClientSession, max_retries: int = 10, max_pages: int = 50, page_item_count: int = 100) -> None:
+    def __init__(self, session: ClientSession, max_retries: int = 50, max_pages: int = 50, page_item_count: int = 100) -> None:
         """
         Args:
             session (ClientSession): aiohttp сессия
@@ -76,10 +76,12 @@ class WBSearchClient:
         data = None
         while not is_response_correct and retries <= self.max_retries:
             async with self._session.get(request_string, params=query_params, headers=headers) as response:
-                    data = await response.json(content_type="text/plain")
-                    is_response_correct = True if len(data["data"]["products"]) > 1 else False
-                    if not is_response_correct:
-                        await asyncio.sleep(0.2) # на всякий случай задержка между неудачными запросами
+                if response.status == 429:
+                    asyncio.sleep(0.2)
+                    continue
+                data = await response.json(content_type="text/plain")
+                is_response_correct = True if len(data["data"]["products"]) > 1 else False
+                
             retries += 1
                         
         if data and len(data["data"]["products"]) > 1:
